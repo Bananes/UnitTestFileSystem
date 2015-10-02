@@ -38,7 +38,7 @@ namespace FileSystem
             }
         }
 
-        public File cd(string name)
+        public virtual File cd(string name)
         {
             return this;
         }
@@ -93,6 +93,11 @@ namespace FileSystem
         public File getRoot()
         {
             File root = this;
+
+            if (root.Nom == "C:")
+            {
+                return root;
+            }
             while (root.parent.Nom != "C:")
             {
                 root = root.getParent();

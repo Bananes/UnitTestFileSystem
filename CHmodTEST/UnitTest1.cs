@@ -74,10 +74,12 @@ namespace AllTest
         [TestMethod]
         public void search()
         {
-            lol = (Directory)repCourant.cd("lol");
-            lol.mkdir("truc");
+            repCourant.cd("lol");
+            lol = (Directory)repCourant;
+            lol.createNewFile("truc");
             lol.getParent();
-            //Assert.AreEqual(lol.search("truc").Count, lol.cd("lol").l);
+            lol.getParent();
+            Assert.AreEqual(lol.search("truc").Count, 1);
         }
 
         [TestMethod]
@@ -155,6 +157,19 @@ namespace AllTest
         }
 
         [TestMethod]
+        public void renamePerm()
+        {
+            Assert.IsTrue(repCourant.renameTo("lol", "I Don't know"));
+        }
+
+        [TestMethod]
+        public void renameNotPerm()
+        {
+            repCourant.chmod(4);
+            Assert.IsFalse(repCourant.renameTo("lol", "I Don't know"));
+        }
+
+        [TestMethod]
         public void IsRename()
         {
             Assert.IsTrue(repCourant.renameTo("lol", "test"));//Rename dir
@@ -168,6 +183,19 @@ namespace AllTest
             Assert.IsFalse(repCourant.renameTo("samFichier", "lol"));//Rename file
 
             Assert.IsFalse(repCourant.renameTo("benjamin", "tourman"));//rename avec un nom non existant
+        }
+
+        [TestMethod]
+        public void DeletePerm()
+        {
+            Assert.IsTrue(repCourant.delete("lol"));
+        }
+
+        [TestMethod]
+        public void DeleteNotPerm()
+        {
+            repCourant.chmod(4);
+            Assert.IsFalse(repCourant.delete("lol"));
         }
 
         [TestMethod]

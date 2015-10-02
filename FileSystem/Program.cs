@@ -31,7 +31,7 @@ namespace FileSystem
                        }
                        else
                        {
-                           goto default;
+                           runOrNot(Actuel);
                        }
                    break;
                    case "search":
@@ -55,7 +55,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }  
                     break;
                    case "create":
@@ -63,22 +63,9 @@ namespace FileSystem
                    {
                        if (Actuel.isDirectory())
                        {
-                           bool test = false;
                            Directory dir = (Directory)Actuel;
-                           foreach (File fichier in dir.Fichiers)
-                           {
-                               if (fichier.Nom == action[1])
-                               {
-                                   Console.WriteLine("Ce fichier existe déjà");
-                                   test = true;
-                                   break;
-                               }
-                           }
-                           if (test == false)
-                           {
-                               dir.createNewFile(action[1]);
-                               Actuel = dir;
-                           }
+                           dir.createNewFile(action[1]);
+                           Actuel = dir;                          
                        }
                        else
                        {
@@ -87,7 +74,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }  
                    break;
                    case "mkdir":
@@ -119,7 +106,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }  
                    break;
                    case "name":
@@ -129,7 +116,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }
                    break;
                    case "ls":
@@ -162,7 +149,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }
                    break;
                    case "cd":
@@ -180,7 +167,7 @@ namespace FileSystem
                        }
                        else
                        {
-                           goto default;
+                           runOrNot(Actuel);
                        }
                    break;
                    case "file":
@@ -197,7 +184,7 @@ namespace FileSystem
                        }
                        else
                        {
-                           goto default;
+                           runOrNot(Actuel);
                        }
                         
                    break;
@@ -213,7 +200,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }                  
                    break;
                    case "chmod":
@@ -232,7 +219,7 @@ namespace FileSystem
                        }
                        else
                        {
-                           goto default;
+                           runOrNot(Actuel);
                        }
                        
                    break;
@@ -250,7 +237,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }
                    break;
                    case "delete":
@@ -265,7 +252,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }
                         
                    break;
@@ -276,7 +263,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }                   
                    break;
                    case "parent":
@@ -290,7 +277,7 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    }
                    break;
                    case "exit":
@@ -300,28 +287,23 @@ namespace FileSystem
                    }
                    else
                    {
-                       goto default;
+                       runOrNot(Actuel);
                    } 
                    break;
                    case "":
                    break;
                    default:
-                   Console.WriteLine("Commande inexistante, incomplète ou argument non valide");
+                   Console.WriteLine("Commande inexistante");
                    break;
                }
                commande(Actuel);
             
         }
 
-        public static void runOrNot(List<string> run, Directory Actuel)
+        public static void runOrNot( File Actuel)
         {
-            if (run.Count != 2)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Commande érroné ou incomplète");
-                Console.ResetColor();
-                commande(Actuel);
-            }
+            Console.WriteLine("Commande incomplète ou argument non valide");
+            commande(Actuel);
         }
     }
 }

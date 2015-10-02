@@ -26,7 +26,18 @@ namespace FileSystem
             bool create = false;
             if (this.canWrite())
             {
-                File fichier = new File(name, (Directory)this);
+                foreach (File fichier in this.Fichiers)
+                {
+                    if (fichier.Nom == name)
+                    {
+                        Console.WriteLine("Ce fichier existe déjà");
+                        create = true;
+                    }
+                }
+                if (create != true)
+                {
+                    File fichier = new File(name, (Directory)this);
+                }
                 return create = true;
             }
             else
@@ -42,7 +53,6 @@ namespace FileSystem
 
         public bool renameTo(string name, string newName)
         {
-            
             bool change = false;
             if (this.canWrite())
             {
